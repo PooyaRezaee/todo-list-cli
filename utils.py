@@ -17,8 +17,13 @@ class RWData:
         self.data = {}
 
     def pull_data(self) -> None:
-        with open('./data.json', 'r') as File:
-            self.data = json.load(File)
+        try:
+            with open('./data.json', 'r') as File:
+                self.data = json.load(File)
+        except FileNotFoundError:
+            with open('./data.json', 'w') as File:
+                File.write("{}")
+                self.data = {}
 
     def push_data(self) -> None:
         with open('./data.json', 'w') as File:
